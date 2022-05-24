@@ -15,12 +15,12 @@ struct _Endereco {
 
 void buscaBinaria(long fim, FILE* entrada, char* procurar) {
     long inicio = 0;
-    int quantidade;
+    int quantidade, i;
     Endereco e;
 
     while (inicio <= fim) {
         int meio = (inicio + fim)/2;
-
+        i++;
         fseek(entrada, meio*300, SEEK_SET);
         quantidade = fread(&e, sizeof(Endereco), 1, entrada);
 
@@ -33,6 +33,8 @@ void buscaBinaria(long fim, FILE* entrada, char* procurar) {
             inicio = meio + 1;
         }
     }
+
+    printf("Foram %d interacoes para encontrar o CEP", i);
 }
 
 int main(int argc, char** argv) {
