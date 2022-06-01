@@ -1,0 +1,2 @@
+
+		cout << h->elementos[i] << ",";
