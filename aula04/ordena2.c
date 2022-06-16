@@ -30,34 +30,34 @@ int main(int argc, char**argv)	// função main com os parametros argc e argv
 	Endereco *e;				// declaração de uma variável do tipo struct Endereco 'e'
 	long posicao, qtd, metade;	// declaração de variáveis do tipo long posicao, qtd e metade
 
-	f = fopen("cep.dat","rb");	// abrir o arquivo 'cep.dat' no modo read binary e alocar em 'f'
-	fseek(f,0,SEEK_END);		
-	posicao = ftell(f);
-	qtd = posicao/sizeof(Endereco);
-	metade = qtd/2;
-	e = (Endereco*) malloc(metade*sizeof(Endereco));
-	rewind(f);
-	if(fread(e,sizeof(Endereco),metade,f) == metade)
+	f = fopen("cep.dat","rb");			// abrir o arquivo 'cep.dat' no modo read binary e alocar em 'f'
+	fseek(f,0,SEEK_END);				// função fseek() para percorrer pelos bytes do arquivo 'f' do registro 0 até o fim
+	posicao = ftell(f);					// função ftell() para imprimir o tamanho em bytes do arquivo 'f' e alocar em posição
+	qtd = posicao/sizeof(Endereco);		// aloca o tamanho do arquivo em registros no 'qtd'
+	metade = qtd/2;						// dividiu em dois arquivos
+	e = (Endereco*) malloc(metade*sizeof(Endereco));	// cria um espaço de memória do tamanho de um Endereco(300) e alocar em 'e'
+	rewind(f);											// vai para o inicio do arquivo 'f'
+	if(fread(e,sizeof(Endereco),metade,f) == metade)	// se (le um Endereco/Entidade até a metade do arquivo 'f' e armazenar no registro/memória em 'e') for igual a metade(está cheio)
 	{
 		printf("Lido = OK\n");
 	}
-	qsort(e,metade,sizeof(Endereco),compara);
-	printf("Ordenado = OK\n");
-	saida = fopen("cep_a.dat","wb");
-	fwrite(e,sizeof(Endereco),metade,saida);
+	qsort(e,metade,sizeof(Endereco),compara);			// executa a função qsort() para ordenar essa 'metade' que está em 'e'
+	printf("Ordenado = OK\n");							
+	saida = fopen("cep_a.dat","wb");					// abre o arquivo/cria 'cep_a.dat' no mode write binary e aloca em saida
+	fwrite(e,sizeof(Endereco),metade,saida);			// escreve Endereco/Entidade por Endereco/Entidade até a metade que está na memória 'e' para o arquivo saida
 	fclose(saida);
 	printf("Escrito = OK\n");
-	free(e);
+	free(e);											// libera memória
 
-	e = (Endereco*) malloc((qtd-metade)*sizeof(Endereco));
-	if(fread(e,sizeof(Endereco),qtd-metade,f) == qtd-metade)
+	e = (Endereco*) malloc((qtd-metade)*sizeof(Endereco));		// aloca memória novamente só que a outra metade 
+	if(fread(e,sizeof(Endereco),qtd-metade,f) == qtd-metade)	// se (le le um Endereco/Entidade até a outra-metade do arquivo 'f' e armazenar no registro/memória em 'e') for igual a outra-metade(está cheio))
 	{
 		printf("Lido = OK\n");
 	}
-	qsort(e,qtd-metade,sizeof(Endereco),compara);
+	qsort(e,qtd-metade,sizeof(Endereco),compara);				// executa a função qsort() para ordenar 'e' que está com a outra metade
 	printf("Ordenado = OK\n");
-	saida = fopen("cep_b.dat","wb");
-	fwrite(e,sizeof(Endereco),qtd-metade,saida);
+	saida = fopen("cep_b.dat","wb");							// abre o arquivo/cria 'cep_b.dat' no modo write binary e aloca em saida novamente
+	fwrite(e,sizeof(Endereco),qtd-metade,saida);				// escreve Endereco por Endereco até enchar a outra metade que está em 'e' e colocar em saida
 	fclose(saida);
 	printf("Escrito = OK\n");
 	free(e);

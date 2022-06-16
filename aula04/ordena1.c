@@ -48,7 +48,7 @@ int main(int argc, char**argv)			// função main com os parametros argc e argv
 	qsort(e,qtd,sizeof(Endereco),compara);					// declaração da função qsort() para ordenar o arquivo
 	printf("Ordenado = OK\n");								// imprimir que foi ordenado caso a função funcione
 	f = fopen("cep_ordenado2.dat","wb");					// abrir/criar um arquivo chamado 'cep_ordenado2.dat' no modo write binary
-	fwrite(e,sizeof(Endereco),qtd,f);						// escrever um Endereco/Entidade por registro do arquivo 'f' e armazenar no registro em 'e'
+	fwrite(e,sizeof(Endereco),qtd,f);						// escrever um Endereco/Entidade da memória 'e' e armazenar no arquivo 'f'
 	fclose(f);												// fechar o arquivo 'f'
 	printf("Escrito = OK\n");								
 	free(e);												// liberar/fechar a memoria alocada

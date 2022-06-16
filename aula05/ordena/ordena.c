@@ -1,3 +1,9 @@
+/* 	<Ordena>
+* 	existem outras formas de implementar o sort que não seja o padrão do C (qsort) que é ineficiente
+* 	portanto, você pode simplesmente utilizar os algoritmos mais clássicos de organização de dados
+* 	o QuickSort e o SelectionSort. Este programa implementa essas duas formas de organizar o arquivo 
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
