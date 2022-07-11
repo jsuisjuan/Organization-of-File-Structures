@@ -93,17 +93,15 @@ void intercala(char* arq1, char* arq2, char* saida) {
         }
     }
 
-    while (!feof(a))
-	{
+    while (!feof(a)) {
 		fwrite(&ea,sizeof(Endereco),1,c);
 		fread(&ea,sizeof(Endereco),1,a);
 	}
-	while (!feof(b))
-	{
+	while (!feof(b)) {
 		fwrite(&eb,sizeof(Endereco),1,c);
 		fread(&eb,sizeof(Endereco),1,b);
 	}
-
+    
 	fclose(a);
 	fclose(b);
 	fclose(c);
